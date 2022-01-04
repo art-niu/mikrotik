@@ -1,1 +1,5 @@
 env.sh
+**/mikrotik.sh
+security/*
+**/*.swp
+**/notes
