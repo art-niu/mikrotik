@@ -31,4 +31,5 @@ shortName=${shortFileName##*/}
 layer7Name="Layer 7 Regexp: ${shortName}"
 echo "/ip firewall layer7-protocol add name=\"${layer7Name}\" regexp=\"${layer7Re}\""
 # echo "/ip firewall filter add action=reject chain=forward layer7-protocol=\"${layer7Name}\" comment=\"${layer7Name}\"  place-before=3"
-echo "/ip firewall filter add action=reject chain=forward layer7-protocol=\"${layer7Name}\" comment=\"${layer7Name}\"  "
+echo "/ip firewall filter add action=accept chain=forward layer7-protocol=\"${layer7Name}\" comment=\"Allow ${shortName}\"  "
+echo "/ip firewall filter add action=drop chain=forward layer7-protocol=\"${layer7Name}\" comment=\"Block ${shortName}\"  "

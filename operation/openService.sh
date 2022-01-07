@@ -34,8 +34,11 @@ if [ $toHour -gt 23 ]; then
 	remainMinutes=59
 fi
 
+enableCmdLine="/ip firewall filter enable [/ip firewall filter find where comment~\"Allow ${svckeyword}\"]"
 cmdLine="/ip firewall filter set time=${currentHour}h${currentMinutes}m-${toHour}h${remainMinutes}m,sun,mon,tue,wed,thu,fri,sat [/ip firewall filter find where comment~\"Allow ${svckeyword}\"]"
 
+echo $enableCmdLine
 echo $cmdLine
 
+ssh $options $ROUTERUSER@$ROUTERIP ${enableCmdLine}
 ssh $options $ROUTERUSER@$ROUTERIP ${cmdLine}

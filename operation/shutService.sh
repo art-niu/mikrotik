@@ -25,7 +25,7 @@ echo "
 "
 printFilterCMD="/ip firewall filter print where comment~\"Allow ${serviceName}\"]"
 disableAllowFilterCMD="/ip firewall filter disable [/ip firewall filter find where comment~\"Allow ${serviceName}\"]"
-enableDropFilterCMD="/ip firewall filter enable [/ip firewall filter find where comment~\"Drop ${serviceName}\"]"
+enableDropFilterCMD="/ip firewall filter enable [/ip firewall filter find where comment~\"Block ${serviceName}\"]"
 
 ssh $options $ROUTERUSER@$ROUTERIP ${printFilterCMD}
 ssh $options $ROUTERUSER@$ROUTERIP ${disableAllowFilterCMD}
