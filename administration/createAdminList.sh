@@ -11,6 +11,10 @@ if [ ! -f $adminIpListFile ]; then
   exit $LINENO
 fi
 
+source ../env.sh
+
+options=""
+
 cmdLine="/ip firewall address-list "
 
 for line in $(grep -v "^#" $adminIpListFile)
@@ -20,3 +24,4 @@ add list=admin_ips address=$line"
 done
 
 echo "$cmdLine"
+ssh $options $ROUTERUSER@$ROUTERIP ${cmdLine}

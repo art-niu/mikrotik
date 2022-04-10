@@ -47,6 +47,8 @@ if [ $toHour -gt 23 ]; then
         remainMinutes=59
 fi
 
+ssh $options $ROUTERUSER@$ROUTERIP "/ip k print"
+
 day=`date +%a`
 formatedDay=`echo $day|tr [A-Z] [a-z]`
 
