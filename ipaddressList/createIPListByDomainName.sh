@@ -32,15 +32,17 @@ echo '
 :global sequenceOfFirstRule [:pick $firstRule 1 5 ]
 '
 
+sequenceOfFirstRule=20
+
 # Create Dynamic IP List
 for i in $tgtDomains
 do 
   tgtHostName=`echo $i | tr [A-Z] [a-z]`
   TGTHOSTNAME=`echo $i | tr [a-z] [A-Z]`
-  cmdLine="/ip firewall filter add chain=forward action=add-dst-to-address-list protocol=tcp address-list=${addressListName} address-list-timeout=$addressListTimeout dst-port=443 log=yes log-prefix=\"%%IPLIST-I-\" tls-host=*${tgtHostName}* comment=\"Dynamically create ip list: ${addressListName} - ${tgtHostName}\" place-before=\$sequenceOfFirstRule"
+  cmdLine="/ip firewall filter add chain=forward action=add-dst-to-address-list protocol=tcp address-list=${addressListName} address-list-timeout=$addressListTimeout dst-port=443 log=yes log-prefix=\"%%IPLIST-I-\" tls-host=*${tgtHostName}* comment=\"Dynamically create ip list: ${addressListName} - ${tgtHostName}\" place-before=$sequenceOfFirstRule"
   echo $cmdLine
 
-  if [ ! -z "$ROUTERIP" ] && [ ! -z "$ROUTERUSER" ]; then
-    ssh ${ROUTERUSER}@${ROUTERIP} $cmdLine
-  fi
+#  if [ ! -z "$ROUTERIP" ] && [ ! -z "$ROUTERUSER" ]; then
+#    ssh ${ROUTERUSER}@${ROUTERIP} $cmdLine
+#  fi
 done

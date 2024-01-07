@@ -32,6 +32,7 @@ echo '
 :global sequenceOfFirstRule [:pick $firstRule 1 5 ]
 '
 
+sequenceOfFirstRule=110
 while [ $allowStartingHour -lt $onlyOneRule ]
 do
   # Calculate the ending hour and minutes of the allow duration.
@@ -51,21 +52,21 @@ do
 
   if [ $allowStartingHour -lt 10 ]; then
     hour="0${allowStartingHour}"
-    echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
-    echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
+    echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=$sequenceOfFirstRule"
+    echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${hour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=$sequenceOfFirstRule"
   else
     if [ $endingHour -eq 0 ]; then
       # Create the rules from ${allowStartingHour}:${allowStartingMinutesString} to 23:59
-      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-23h59m\" time=${allowStartingHour}h${allowStartingMinutesString}m-23h59m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
-      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-23h59m\" time=${allowStartingHour}h${allowStartingMinutesString}m-23h59m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
+      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-23h59m\" time=${allowStartingHour}h${allowStartingMinutesString}m-23h59m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=$sequenceOfFirstRule"
+      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-23h59m\" time=${allowStartingHour}h${allowStartingMinutesString}m-23h59m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=$sequenceOfFirstRule"
       # Create the rules from 00:00 to 00:$endingMinutes. If endingMinutes equals 0, then do nothing.
       if [ ${endingMinutes} -ne 0 ]; then
-        echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - 00h00m-${endingHour}h${endingMinutes}m\" time=00h00m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
-        echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - 00h00m-${endingHour}h${endingMinutes}m\" time=00h00m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
+        echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - 00h00m-${endingHour}h${endingMinutes}m\" time=00h00m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=$sequenceOfFirstRule"
+        echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - 00h00m-${endingHour}h${endingMinutes}m\" time=00h00m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=$sequenceOfFirstRule"
       fi
     else
-      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
-      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=\$sequenceOfFirstRule"
+      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} src-address-list=${application_ips} place-before=$sequenceOfFirstRule"
+      echo "/ip firewall filter add action=accept chain=forward comment=\"Allow ${application} - ${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m\" time=${allowStartingHour}h${allowStartingMinutesString}m-${endingHour}h${endingMinutes}m,sun,mon,tue,wed,thu,fri,sat log-prefix=${APPLICATION} dst-address-list=${application_ips} place-before=$sequenceOfFirstRule"
 
     fi
   fi
@@ -74,7 +75,8 @@ done
 
 # The rules to drop application traffic
 
+sequenceOfFirstRule=110
 echo "
-/ip firewall filter add action=drop chain=forward comment=\"Block ${application} ingress traffic\" src-address-list=${application_ips} in-interface=bridge time= 0s-1d,sun,mon,tue,wed,thu,fri,sat
-/ip firewall filter add action=drop chain=forward comment=\"Block ${application} egress traffic\" dst-address-list=${application_ips} in-interface=bridge time= 0s-1d,sun,mon,tue,wed,thu,fri,sat"
+/ip firewall filter add action=drop chain=forward comment=\"Block ${application} ingress traffic\" src-address-list=${application_ips} in-interface=bridge time= 0s-1d,sun,mon,tue,wed,thu,fri,sat  place-before=$sequenceOfFirstRule
+/ip firewall filter add action=drop chain=forward comment=\"Block ${application} egress traffic\" dst-address-list=${application_ips} in-interface=bridge time= 0s-1d,sun,mon,tue,wed,thu,fri,sat  place-before=$sequenceOfFirstRule"
 

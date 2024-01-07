@@ -29,8 +29,8 @@ overHour=`expr $toMinutes / 60`
 remainMinutes=`expr $toMinutes % 60`
 toHour=`expr $currentHour + $overHour`
 
-if [ $toHour -gt 23 ]; then
-	toHour=23
+if [ $toHour -gt 22 ]; then
+	toHour=22
 	remainMinutes=59
 fi
 
