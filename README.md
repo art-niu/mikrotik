@@ -20,6 +20,9 @@ ftp> put id_rsa.pub
 ftp> quit
 221 Closing
 
+Testing P 
+Testing P 
+Testing P 
 
 [admin@MikroTik] > user ssh-keys import public-key-file=id_rsa.pub 
 
