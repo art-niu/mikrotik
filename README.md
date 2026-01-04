@@ -20,6 +20,7 @@ ftp> put id_rsa.pub
 ftp> quit
 221 Closing
 
+
 [admin@MikroTik] > user ssh-keys import public-key-file=id_rsa.pub 
 
 # Create IP List
